@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Desperdício</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+    <!-- Chart.js: biblioteca para desenhar os gráficos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <main class="container container-largo">
+      <nav class="menu">
+        <span class="marca">
+          <span class="material-symbols-outlined">eco</span>
+          Desperdício Zero
+        </span>
+        <div class="menu-links">
+          <a href="index.html">Lotes</a>
+          <a href="dashboard.html" class="ativo">Dashboard</a>
+        </div>
+      </nav>
+
+      <header class="cabecalho">
+        <span class="subtitulo">PAINEL ANALÍTICO · META ODS 12.3</span>
+        <h1>Dashboard de Desperdício</h1>
+        <p>
+          Quanto foi recuperado com a liquidação dos lotes, quanto ainda está em
+          risco e o que acabou indo para o descarte.
+        </p>
+      </header>
+
+      <!-- Filtros: valem para TODOS os gráficos da página -->
+      <section class="barra-filtros">
+        <div class="campo">
+          <label for="filtro-estabelecimento">Estabelecimento</label>
+          <select id="filtro-estabelecimento">
+            <option value="">Todos os estabelecimentos</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <span class="rotulo">Período</span>
+          <div class="periodos" id="periodos">
+            <button type="button" data-dias="7">7 dias</button>
+            <button type="button" data-dias="30" class="ativo">30 dias</button>
+            <button type="button" data-dias="90">90 dias</button>
+          </div>
+        </div>
+
+        <div class="atualizacao">
+          <button type="button" id="btn-atualizar" class="btn btn-secundario">
+            <span class="material-symbols-outlined">refresh</span>
+            Atualizar
+          </button>
+          <span id="texto-atualizacao"></span>
+        </div>
+      </section>
+
+      <p id="mensagem-erro" class="mensagem-vazia" hidden></p>
+
+      <div id="conteudo-dashboard">
+        <!-- Indicadores principais (KPIs) -->
+        <section class="kpis">
+          <article class="kpi">
+            <span class="kpi-titulo">Receita recuperada</span>
+            <strong id="kpi-receita" class="kpi-valor">-</strong>
+            <span id="kpi-receita-detalhe" class="kpi-detalhe"></span>
+          </article>
+
+          <article class="kpi">
+            <span class="kpi-titulo">Taxa de liquidação</span>
+            <strong id="kpi-taxa" class="kpi-valor">-</strong>
+            <div class="meta">
+              <div class="meta-barra"><div id="kpi-taxa-barra"></div></div>
+              <i class="meta-marca" title="Meta de 80%"></i>
+            </div>
+            <span id="kpi-taxa-detalhe" class="kpi-detalhe"></span>
+          </article>
+
+          <article class="kpi">
+            <span class="kpi-titulo">Em risco (vence em até 7 dias)</span>
+            <strong id="kpi-risco" class="kpi-valor">-</strong>
+            <span id="kpi-risco-detalhe" class="kpi-detalhe"></span>
+          </article>
+
+          <article class="kpi">
+            <span class="kpi-titulo">Desperdício (descartado)</span>
+            <strong id="kpi-descarte" class="kpi-valor">-</strong>
+            <span id="kpi-descarte-detalhe" class="kpi-detalhe"></span>
+          </article>
+        </section>
+
+        <!-- Linha 1 de gráficos -->
+        <section class="grade-graficos">
+          <article class="cartao cartao-largo">
+            <div class="cartao-topo">
+              <div>
+                <h2>Receita recuperada por dia</h2>
+                <p>Vendas de lotes, já com o desconto aplicado</p>
+              </div>
+            </div>
+            <div class="area-grafico">
+              <canvas id="grafico-receita" aria-label="Receita recuperada por dia" role="img"></canvas>
+            </div>
+            <details>
+              <summary>Ver dados em tabela</summary>
+              <div id="tabela-receita" class="tabela-rolagem"></div>
+            </details>
+          </article>
+
+          <article class="cartao">
+            <div class="cartao-topo">
+              <div>
+                <h2>Validade do estoque ativo</h2>
+                <p>Unidades disponíveis por situação</p>
+              </div>
+            </div>
+            <div id="situacao-estoque" class="situacao-estoque"></div>
+            <p id="situacao-total" class="cartao-rodape"></p>
+          </article>
+        </section>
+
+        <!-- Linha 2 de gráficos -->
+        <section class="grade-graficos duas-colunas">
+          <article class="cartao">
+            <div class="cartao-topo">
+              <div>
+                <h2>Valor em risco por categoria</h2>
+                <p>Lotes que vencem em até 7 dias (preço cheio)</p>
+              </div>
+            </div>
+            <div class="area-grafico" id="area-categoria">
+              <canvas id="grafico-categoria" aria-label="Valor em risco por categoria" role="img"></canvas>
+            </div>
+            <p id="vazio-categoria" class="cartao-vazio" hidden>
+              Nenhum lote vencendo nos próximos 7 dias.
+            </p>
+          </article>
+
+          <article class="cartao">
+            <div class="cartao-topo">
+              <div>
+                <h2>Vendido x descartado</h2>
+                <p>Unidades por estabelecimento no período</p>
+              </div>
+            </div>
+            <div class="area-grafico" id="area-estabelecimento">
+              <canvas id="grafico-estabelecimento" aria-label="Unidades vendidas e descartadas por estabelecimento" role="img"></canvas>
+            </div>
+            <p id="vazio-estabelecimento" class="cartao-vazio" hidden>
+              Nenhuma venda ou descarte no período.
+            </p>
+          </article>
+        </section>
+
+        <!-- Tabela de alertas preditivos -->
+        <section class="cartao">
+          <div class="cartao-topo">
+            <div>
+              <h2>Alertas de vencimento</h2>
+              <p>Lotes ativos que vencem em até 7 dias ou já venceram</p>
+            </div>
+            <a href="index.html" class="link-acao">Ir para os lotes →</a>
+          </div>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Lote</th>
+                  <th>Produto</th>
+                  <th>Estabelecimento</th>
+                  <th>Validade</th>
+                  <th>Situação</th>
+                  <th class="numero">Disponível</th>
+                  <th class="numero">Preço hoje</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-alertas"></tbody>
+            </table>
+          </div>
+          <p id="vazio-alertas" class="cartao-vazio" hidden>
+            Nenhum lote perto do vencimento. 🎉
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script src="./assets/js/dashboard.js"></script>
+  </body>
+</html>

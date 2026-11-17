@@ -1,0 +1,360 @@
+/* Estilos exclusivos do dashboard (o style.css também é usado) */
+
+:root {
+  /* Cores dos gráficos */
+  --serie-1: #2a78d6; /* vendido / receita */
+  --serie-2: #eb6834; /* descartado */
+  --grade: #e1e0d9;
+  --eixo: #898781;
+}
+
+.container-largo {
+  max-width: 1200px;
+}
+
+/* ---------- Filtros ---------- */
+.barra-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px;
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+}
+
+.barra-filtros .campo {
+  min-width: 240px;
+}
+
+.rotulo {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.periodos {
+  display: flex;
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.periodos button {
+  border: none;
+  background: transparent;
+  padding: 9px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.periodos button.ativo {
+  background: white;
+  color: var(--cor-texto);
+  box-shadow: 0 1px 3px #0f172a1a;
+}
+
+.atualizacao {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+}
+
+.atualizacao .btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.atualizacao .material-symbols-outlined {
+  font-size: 18px;
+}
+
+/* Enquanto carrega, mantém os dados antigos meio apagados */
+.carregando {
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+
+/* ---------- KPIs ---------- */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.kpi {
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kpi-titulo {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--cor-texto-suave);
+}
+
+.kpi-valor {
+  font-size: 30px;
+  letter-spacing: -0.5px;
+}
+
+.kpi-detalhe {
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+  line-height: 1.5;
+}
+
+.meta {
+  position: relative;
+  padding: 4px 0;
+}
+
+.meta-barra {
+  height: 8px;
+  background: var(--cor-fundo);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.meta-barra div {
+  height: 100%;
+  width: 0;
+  background: var(--cor-principal);
+  border-radius: 4px;
+  transition: width 0.4s;
+}
+
+/* Risquinho mostrando onde fica a meta de 80% */
+.meta-marca {
+  position: absolute;
+  left: 80%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--cor-texto);
+}
+
+/* ---------- Cartões dos gráficos ---------- */
+.grade-graficos {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.grade-graficos.duas-colunas {
+  grid-template-columns: 1fr 1fr;
+}
+
+.cartao {
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  padding: 22px;
+  min-width: 0;
+}
+
+.cartao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.cartao-topo h2 {
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.cartao-topo p {
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+}
+
+.area-grafico {
+  position: relative;
+  height: 280px;
+}
+
+.cartao-vazio {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: 40px 10px;
+  font-size: 14px;
+}
+
+.cartao-rodape {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+}
+
+.link-acao {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--cor-principal);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+details {
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--cor-texto-suave);
+}
+
+/* ---------- Situação da validade (barras feitas com HTML) ---------- */
+.situacao-estoque {
+  display: grid;
+  gap: 18px;
+}
+
+.situacao-linha {
+  display: grid;
+  gap: 6px;
+}
+
+.situacao-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.situacao-nome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.situacao-nome .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.situacao-numeros {
+  color: var(--cor-texto-suave);
+  white-space: nowrap;
+}
+
+.situacao-barra {
+  height: 10px;
+  background: var(--cor-fundo);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.situacao-barra div {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s;
+}
+
+.icone-normal { color: #15803d; }
+.icone-atencao { color: #b45309; }
+.icone-critico { color: #c2410c; }
+.icone-vencido { color: #b91c1c; }
+
+/* ---------- Tabelas ---------- */
+.tabela-rolagem {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela th {
+  text-align: left;
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--cor-borda);
+  white-space: nowrap;
+}
+
+.tabela td {
+  padding: 12px;
+  border-bottom: 1px solid var(--cor-borda);
+  white-space: nowrap;
+}
+
+.tabela tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela .numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabela .lote-codigo {
+  white-space: nowrap;
+}
+
+.desconto {
+  color: var(--cor-principal);
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.tabela-mini {
+  margin-top: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.tabela-mini .tabela td,
+.tabela-mini .tabela th {
+  padding: 6px 10px;
+}
+
+@media (max-width: 900px) {
+  .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grade-graficos,
+  .grade-graficos.duas-colunas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .barra-filtros .campo {
+    min-width: 100%;
+  }
+
+  .atualizacao {
+    margin-left: 0;
+  }
+}

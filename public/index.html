@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestão de Lotes</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <!-- Menu de navegação -->
+      <nav class="menu">
+        <span class="marca">
+          <span class="material-symbols-outlined">eco</span>
+          Desperdício Zero
+        </span>
+        <div class="menu-links">
+          <a href="index.html" class="ativo">Lotes</a>
+          <a href="dashboard.html">Dashboard</a>
+        </div>
+      </nav>
+
+      <header class="cabecalho">
+        <span class="subtitulo">CONTROLE DE ESTOQUE PERECÍVEL</span>
+        <h1>Gestão de Alimentos por Lote</h1>
+        <p>
+          Cadastre os lotes, acompanhe a validade e liquide com desconto os
+          produtos que estão perto de vencer.
+        </p>
+      </header>
+
+      <!-- Alerta preditivo de vencimento (preenchido pelo JavaScript) -->
+      <div id="alerta-vencimento" class="alerta" hidden></div>
+
+      <section class="painel">
+        <h2 id="titulo-formulario">Cadastrar lote</h2>
+
+        <form id="form-lote">
+          <div class="form-grid">
+            <div class="campo">
+              <label for="input-codigo">Código do lote *</label>
+              <input
+                type="text"
+                id="input-codigo"
+                placeholder="Ex.: LT-261117-001"
+                maxlength="30"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="input-produto">Produto *</label>
+              <input
+                type="text"
+                id="input-produto"
+                placeholder="Ex.: Leite integral 1L"
+                maxlength="100"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="input-categoria">Categoria *</label>
+              <select id="input-categoria" required>
+                <option value="">Selecione</option>
+                <option>Hortifrúti</option>
+                <option>Laticínios</option>
+                <option>Carnes</option>
+                <option>Frios</option>
+                <option>Padaria</option>
+                <option>Bebidas</option>
+                <option>Mercearia</option>
+                <option>Congelados</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="input-estabelecimento">Estabelecimento *</label>
+              <input
+                type="text"
+                id="input-estabelecimento"
+                list="lista-estabelecimentos"
+                placeholder="Ex.: Supermercado Centro"
+                maxlength="100"
+                required
+              />
+              <!-- Sugestões com os estabelecimentos já cadastrados -->
+              <datalist id="lista-estabelecimentos"></datalist>
+            </div>
+
+            <div class="campo">
+              <label for="input-fornecedor">Fornecedor</label>
+              <input
+                type="text"
+                id="input-fornecedor"
+                placeholder="Ex.: Laticínios Vale Sul"
+                maxlength="100"
+              />
+            </div>
+
+            <div class="campo">
+              <label for="input-quantidade">Quantidade (unidades) *</label>
+              <input
+                type="number"
+                id="input-quantidade"
+                min="1"
+                step="1"
+                placeholder="Ex.: 50"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="input-preco">Preço unitário (R$) *</label>
+              <input
+                type="number"
+                id="input-preco"
+                min="0.01"
+                step="0.01"
+                placeholder="Ex.: 5.49"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="input-entrada">Data de entrada *</label>
+              <input type="date" id="input-entrada" required />
+            </div>
+
+            <div class="campo">
+              <label for="input-fabricacao">Data de fabricação</label>
+              <input type="date" id="input-fabricacao" />
+            </div>
+
+            <div class="campo">
+              <label for="input-validade">Data de validade *</label>
+              <input type="date" id="input-validade" required />
+            </div>
+          </div>
+
+          <div class="acoes-formulario">
+            <button type="submit" id="btn-salvar" class="btn btn-principal">
+              Cadastrar lote
+            </button>
+            <button
+              type="button"
+              id="btn-cancelar"
+              class="btn btn-secundario"
+              hidden
+            >
+              Cancelar edição
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="secao-lista">
+        <div class="titulo-lista">
+          <div>
+            <h2>Lotes cadastrados</h2>
+            <p>Ordenados pela validade: o que vence primeiro sai primeiro.</p>
+          </div>
+          <span id="contador" class="contador">0 lotes</span>
+        </div>
+
+        <!-- Filtros da lista -->
+        <div class="filtros">
+          <div class="campo">
+            <label for="filtro-status">Status</label>
+            <select id="filtro-status">
+              <option value="ativo">Ativos</option>
+              <option value="vendido">Vendidos</option>
+              <option value="descartado">Descartados</option>
+              <option value="inativo">Inativos</option>
+              <option value="todos">Todos</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="filtro-busca">Buscar</label>
+            <input
+              type="search"
+              id="filtro-busca"
+              placeholder="Produto, código ou estabelecimento"
+            />
+          </div>
+        </div>
+
+        <!-- Legenda das cores de validade -->
+        <div class="legenda">
+          <span><i class="ponto normal"></i> Mais de 7 dias</span>
+          <span><i class="ponto atencao"></i> 4 a 7 dias (-20%)</span>
+          <span><i class="ponto critico"></i> 0 a 3 dias (-40% / -60% no dia)</span>
+          <span><i class="ponto vencido"></i> Vencido (descartar)</span>
+        </div>
+
+        <div id="lista-lotes" class="lista-lotes"></div>
+
+        <p id="mensagem-vazia" class="mensagem-vazia">Nenhum lote encontrado.</p>
+      </section>
+    </main>
+
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

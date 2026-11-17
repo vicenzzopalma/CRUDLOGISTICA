@@ -1,0 +1,447 @@
+/* =========================================================
+   Variáveis de cor (mesma ideia do :root visto em aula)
+   ========================================================= */
+:root {
+  --cor-principal: #15803d;
+  --cor-principal-escura: #166534;
+  --cor-principal-clara: #dcfce7;
+  --cor-fundo: #f1f5f9;
+  --cor-painel: #ffffff;
+  --cor-texto: #1e293b;
+  --cor-texto-suave: #64748b;
+  --cor-borda: #e2e8f0;
+
+  /* Cores da situação de validade */
+  --cor-normal: #0ca30c;
+  --cor-atencao: #fab219;
+  --cor-critico: #ec835a;
+  --cor-vencido: #d03b3b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  padding: 35px 20px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* ---------- Menu ---------- */
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  color: var(--cor-principal);
+}
+
+.menu-links {
+  display: flex;
+  gap: 6px;
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.menu-links a {
+  text-decoration: none;
+  color: var(--cor-texto-suave);
+  font-weight: bold;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 7px;
+}
+
+.menu-links a.ativo {
+  background: var(--cor-principal-clara);
+  color: var(--cor-principal-escura);
+}
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  margin-bottom: 28px;
+}
+
+.subtitulo {
+  color: var(--cor-principal);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 10px 0;
+  font-size: 30px;
+}
+
+.cabecalho p,
+.titulo-lista p {
+  color: var(--cor-texto-suave);
+  line-height: 1.6;
+}
+
+/* ---------- Alerta de vencimento ---------- */
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.alerta[hidden] {
+  display: none;
+}
+
+/* ---------- Formulário ---------- */
+.painel {
+  background: var(--cor-painel);
+  padding: 26px;
+  border-radius: 14px;
+  border: 1px solid var(--cor-borda);
+  box-shadow: 0 4px 15px #0f172a08;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 22px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  color: var(--cor-texto);
+  outline: none;
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: var(--cor-principal);
+  box-shadow: 0 0 0 3px #15803d25;
+}
+
+.acoes-formulario {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.btn {
+  border: none;
+  padding: 12px 17px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  filter: brightness(0.94);
+  transform: translateY(-1px);
+}
+
+.btn-principal {
+  background: var(--cor-principal);
+  color: white;
+}
+
+.btn-secundario {
+  background: var(--cor-borda);
+  color: #334155;
+}
+
+/* ---------- Lista de lotes ---------- */
+.secao-lista {
+  margin-top: 35px;
+}
+
+.titulo-lista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.titulo-lista h2 {
+  margin-bottom: 6px;
+}
+
+.contador {
+  background: var(--cor-principal-clara);
+  color: var(--cor-principal-escura);
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.filtros {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+  margin-bottom: 20px;
+}
+
+.legenda span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ponto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.ponto.normal { background: var(--cor-normal); }
+.ponto.atencao { background: var(--cor-atencao); }
+.ponto.critico { background: var(--cor-critico); }
+.ponto.vencido { background: var(--cor-vencido); }
+
+.lista-lotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.lote-card {
+  background: white;
+  padding: 22px;
+  border: 1px solid var(--cor-borda);
+  border-left: 5px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px #0f172a06;
+}
+
+/* A borda da esquerda mostra a situação da validade */
+.borda-normal { border-left-color: var(--cor-normal); }
+.borda-atencao { border-left-color: var(--cor-atencao); }
+.borda-critico { border-left-color: var(--cor-critico); }
+.borda-vencido { border-left-color: var(--cor-vencido); }
+
+.lote-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 18px;
+}
+
+.lote-identificacao {
+  min-width: 0;
+}
+
+.lote-codigo {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--cor-principal-escura);
+  background: var(--cor-principal-clara);
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+.lote-identificacao h3 {
+  font-size: 17px;
+  overflow-wrap: anywhere;
+  margin: 8px 0 4px;
+}
+
+.lote-categoria {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+}
+
+/* Etiquetas de situação: sempre com texto, nunca só a cor */
+.etiqueta {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.etiqueta.normal { background: #dcfce7; color: #166534; }
+.etiqueta.atencao { background: #fef3c7; color: #92400e; }
+.etiqueta.critico { background: #ffedd5; color: #9a3412; }
+.etiqueta.vencido { background: #fee2e2; color: #991b1b; }
+.etiqueta.status-vendido { background: #dbeafe; color: #1d4ed8; }
+.etiqueta.status-descartado { background: #fee2e2; color: #991b1b; }
+.etiqueta.status-inativo { background: #e2e8f0; color: #475569; }
+
+.lote-dados {
+  border-top: 1px solid var(--cor-borda);
+  padding-top: 15px;
+  display: grid;
+  gap: 10px;
+}
+
+.dado {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.dado span {
+  color: var(--cor-texto-suave);
+}
+
+.dado strong {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.texto-atencao { color: #92400e; }
+.texto-critico { color: #c2410c; }
+.texto-vencido { color: #b91c1c; }
+.texto-promocao { color: var(--cor-principal); }
+
+.riscado {
+  text-decoration: line-through;
+  color: var(--cor-texto-suave);
+  font-weight: normal;
+}
+
+.lote-acoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.lote-acoes button {
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  border: 1px solid transparent;
+}
+
+.btn-vender {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0 !important;
+}
+
+.btn-editar {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe !important;
+}
+
+.btn-descartar {
+  background: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa !important;
+}
+
+.btn-desativar {
+  background: #f8fafc;
+  color: #475569;
+  border-color: #cbd5e1 !important;
+}
+
+.lote-acoes button:hover {
+  filter: brightness(0.95);
+}
+
+.mensagem-vazia {
+  text-align: center;
+  background: white;
+  padding: 35px 20px;
+  color: var(--cor-texto-suave);
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+}
+
+@media (max-width: 650px) {
+  body {
+    padding: 22px 14px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .form-grid,
+  .lista-lotes,
+  .filtros {
+    grid-template-columns: 1fr;
+  }
+
+  .painel {
+    padding: 20px;
+  }
+
+  .titulo-lista {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .menu {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
