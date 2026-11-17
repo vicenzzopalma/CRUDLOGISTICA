@@ -1,5 +1,5 @@
 -- =========================================================
--- BANCO DE DADOS COMPLETO: gestao_lotes
+-- BANCO DE DADOS COMPLETO: gestao_lotes (MySQL)
 -- Estrutura (tabelas) + dados de exemplo (70 lotes e 856 vendas)
 -- Dados gerados com a data de referência 2026-11-17.
 --
@@ -50,9 +50,7 @@ create table vendas (
   foreign key (lote_id) references lotes(id)
 );
 
--- ---------------------------------------------------------
 -- Dados: lotes
--- ---------------------------------------------------------
 insert into lotes (id, codigo_lote, produto, categoria, estabelecimento, fornecedor,
   quantidade, quantidade_vendida, quantidade_descartada, preco_unitario,
   data_fabricacao, data_validade, data_entrada, data_descarte, status) values
@@ -127,9 +125,7 @@ insert into lotes (id, codigo_lote, produto, categoria, estabelecimento, fornece
   (69, 'LT-261003-069', 'Linguiça toscana 1kg', 'Carnes', 'Restaurante Sabor Caseiro', 'Frigorífico Catarinense', 65, 65, 0, 21.9, '2026-10-03', '2026-10-15', '2026-10-03', NULL, 'vendido'),
   (70, 'LT-261008-070', 'Presunto fatiado 200g', 'Frios', 'Padaria Pão Quente', 'Frigorífico Catarinense', 44, 30, 14, 9.9, '2026-10-08', '2026-10-18', '2026-10-08', '2026-10-19', 'descartado');
 
--- ---------------------------------------------------------
 -- Dados: vendas (liquidações)
--- ---------------------------------------------------------
 insert into vendas (lote_id, quantidade, preco_unitario, desconto_percentual, valor_total, data_venda) values
   (1, 4, 13.5, 40, 54, '2026-11-14 11:41:00'),
   (1, 3, 9, 60, 27, '2026-11-17 14:02:00'),

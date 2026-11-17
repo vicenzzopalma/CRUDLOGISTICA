@@ -6,6 +6,21 @@ Monitoramento e Liquidação de Estoques Próximos ao Vencimento"* (UniSociesc, 
 
 **Grupo:** Vicenzzo Palma Mastronikolis, Fanthine Knopf Gomes, Larissa Fernandes Monteiro e Gabriel de Oliveira Ferri.
 
+## Acesse online
+
+**Site:** <https://vicenzzopalma.github.io/CRUDLOGISTICA/>
+**Dashboard:** <https://vicenzzopalma.github.io/CRUDLOGISTICA/dashboard.html>
+
+Na versão online o **banco de dados vai junto com o site**: é um banco SQLite
+(`public/dados/banco-exemplo.sql`) que roda dentro do navegador com a biblioteca sql.js. O arquivo
+`public/assets/js/servidor-navegador.js` faz o papel do servidor Express, respondendo as mesmas rotas.
+Ao abrir, as datas dos dados de exemplo são ajustadas para o dia de hoje, e o que for cadastrado,
+vendido ou descartado fica salvo **no navegador de quem está usando** (botão "Restaurar dados de exemplo"
+volta ao início). O site é publicado sozinho a cada `git push` pelo GitHub Actions (`.github/workflows/pages.yml`).
+
+A versão completa da aula (Node.js + Express + MySQL) está neste mesmo repositório e roda com `npm run dev`
+(instruções abaixo).
+
 ## O que o sistema faz
 
 | Requisito do resumo | Como foi implementado |
@@ -48,7 +63,9 @@ gestao_lotes/
 ├── infraestrutura/
 │   ├── conexao.js            -> conexão com o MySQL
 │   ├── tabelas.js            -> cria as tabelas "lotes" e "vendas"
-│   └── popular.js            -> insere dados de exemplo
+│   ├── dadosExemplo.js       -> gera os lotes e vendas de exemplo
+│   ├── popular.js            -> grava os dados de exemplo no MySQL (npm run popular)
+│   └── exportar-banco.js     -> gera banco.sql e o banco SQLite do site (npm run exportar)
 ├── regras/
 │   └── precificacao.js       -> situação de validade e desconto
 ├── routers/
@@ -58,9 +75,10 @@ gestao_lotes/
 └── public/                   -> o site (entregue pelo Express)
     ├── index.html            -> gestão de lotes
     ├── dashboard.html        -> dashboard
+    ├── dados/banco-exemplo.sql -> banco SQLite da versão online
     └── assets/
         ├── css/style.css, css/dashboard.css
-        └── js/script.js, js/dashboard.js
+        └── js/script.js, js/dashboard.js, js/servidor-navegador.js
 ```
 
 ## Como rodar

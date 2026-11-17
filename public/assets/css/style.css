@@ -76,6 +76,35 @@ body {
   color: var(--cor-principal-escura);
 }
 
+/* ---------- Aviso da versão online (GitHub Pages) ---------- */
+.aviso-online {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e3a8a;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.aviso-online button {
+  border: 1px solid #93c5fd;
+  background: white;
+  color: #1d4ed8;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
 /* ---------- Cabeçalho ---------- */
 .cabecalho {
   margin-bottom: 28px;
