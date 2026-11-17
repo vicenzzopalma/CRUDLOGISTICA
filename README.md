@@ -43,7 +43,8 @@ gestao_lotes/
 ├── index.js                  -> sobe o servidor (porta 3000)
 ├── package.json
 ├── .env.example              -> modelo com os dados do banco (copie para .env)
-├── banco.sql                 -> script opcional para o Workbench
+├── banco.sql                 -> BANCO COMPLETO: tabelas + 70 lotes + 856 vendas
+├── node_modules/             -> dependências já incluídas (npm install é opcional)
 ├── infraestrutura/
 │   ├── conexao.js            -> conexão com o MySQL
 │   ├── tabelas.js            -> cria as tabelas "lotes" e "vendas"
@@ -64,7 +65,9 @@ gestao_lotes/
 
 ## Como rodar
 
-### 1. Instalar as dependências
+### 1. Dependências
+
+A pasta `node_modules` já vem no repositório. Se der algum erro, rode:
 
 ```bash
 npm install
@@ -87,28 +90,34 @@ Copie o arquivo `.env.example` e renomeie a cópia para `.env`. Depois escolha *
    DB_PORT=12345
    DB_USER=avnadmin
    DB_PASSWORD=sua_senha
-   DB_NAME=defaultdb
+   DB_NAME=gestao_lotes
    DB_SSL=true
    ```
 
-6. (Opcional, mais seguro) Baixe o **CA certificate** na mesma tela e salve como `infraestrutura/ca.pem`.
+6. Conecte no **MySQL Workbench** com esses mesmos dados (aba SSL: *Require*) e rode o arquivo
+   **`banco.sql`**. Ele cria o banco `gestao_lotes` com todas as tabelas e dados.
+7. (Opcional, mais seguro) Baixe o **CA certificate** na mesma tela e salve como `infraestrutura/ca.pem`.
 
 > O plano gratuito do Aiven tem 1 serviço MySQL por conta, com recursos pequenos. É suficiente para este projeto.
-> Também dá para abrir esse banco no **MySQL Workbench** usando os mesmos dados (marque SSL "Require").
+> **Não suba o `.env` para o GitHub**: o repositório é público e a senha do banco ficaria visível para qualquer pessoa.
+> Passe a senha para o grupo por mensagem privada.
 
 #### Opção B: MySQL local (Workbench / XAMPP)
 
-1. No Workbench, rode: `create database gestao_lotes;` (ou o arquivo `banco.sql`).
+1. No Workbench, abra e execute o arquivo **`banco.sql`** (cria o banco, as tabelas e os dados).
 2. Deixe o `.env` como no exemplo (`localhost`, `root`, sem senha).
 
-### 3. Popular com dados de exemplo (para o dashboard ter conteúdo)
+### 3. Dados de exemplo
+
+O `banco.sql` já traz 70 lotes em 4 estabelecimentos e 856 vendas, com datas até **17/11/2026**.
+Como as datas são fixas, com o passar dos dias os lotes vão vencendo. Para **gerar dados novos com base
+na data de hoje** (apaga os lotes e vendas atuais e insere de novo):
 
 ```bash
-npm run popular
+npm run popular -- --limpar
 ```
 
-Insere 70 lotes em 4 estabelecimentos e centenas de vendas dos últimos meses.
-Só insere se a tabela estiver vazia. Para **apagar tudo** e inserir de novo: `npm run popular -- --limpar`.
+Sem o `--limpar`, o comando só insere se a tabela estiver vazia.
 
 ### 4. Subir o servidor
 

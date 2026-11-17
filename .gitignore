@@ -1,3 +1,4 @@
-node_modules
+# Tudo do projeto vai para o repositório (inclusive node_modules e banco.sql).
+# Só a SENHA do banco fica fora, porque o repositório é público:
 .env
 infraestrutura/ca.pem
