@@ -1,0 +1,41 @@
+DESPERDÍCIO ZERO - GESTÃO DE ALIMENTOS POR LOTE
+Prints para a apresentação (1920 x 1080, prontos para colocar em slides)
+
+Site online:  https://vicenzzopalma.github.io/CRUDLOGISTICA/
+Dashboard:    https://vicenzzopalma.github.io/CRUDLOGISTICA/dashboard.html
+Código:       https://github.com/vicenzzopalma/CRUDLOGISTICA
+
+ROTEIRO SUGERIDO
+================
+
+ABERTURA
+01-capa.png ...................... Título do projeto, grupo e link do site.
+02-como-funciona.png ............. Front-end (HTML/CSS/JS) -> servidor Node.js + Express -> banco MySQL.
+                                   Versão da aula (computador) e versão online (GitHub Pages + SQLite).
+03-regra-de-desconto.png ......... Precificação dinâmica: 0% / -20% / -40% / -60% / vencido não vende.
+
+GESTÃO DE LOTES (página "Lotes")
+04-tela-inicial-lotes.png ........ Menu, alerta preditivo de vencimento e formulário.
+05-cadastrar-lote.png ............ Preenchendo um lote: código, produto, estabelecimento, preço e validade.
+06-lote-cadastrado.png ........... O lote aparece na lista, com aviso de "Atenção" e 20% de desconto automático.
+07-cards-situacao-validade.png ... Legenda de cores, borda colorida, etiqueta de situação e preço com desconto.
+08-vender-lote.png ............... Botão Vender e a janela que pede a quantidade (mostra o preço de hoje).
+09-venda-registrada.png .......... Confirmação da venda e estoque do lote atualizado.
+10-descartar-editar-desativar.png  Lote vencido: Editar, Descartar (conta como desperdício) e Desativar
+                                   (não apaga do banco, mantém o histórico).
+11-filtros-e-busca.png ........... Filtro por status e busca por produto, código ou estabelecimento.
+
+DASHBOARD (página "Dashboard")
+12-dashboard-indicadores.png ..... Filtros e os 4 indicadores: receita recuperada, taxa de liquidação
+                                   (meta de 80% do BSC), valor em risco e desperdício.
+13-dashboard-graficos.png ........ Receita por dia, validade do estoque, risco por categoria e
+                                   vendido x descartado por estabelecimento.
+14-dashboard-alertas.png ......... Tabela de alertas de vencimento com o preço de hoje.
+15-dashboard-filtrado.png ........ Mesmo dashboard filtrado (Padaria Pão Quente, últimos 7 dias).
+
+ENCERRAMENTO
+16-versao-celular.png ............ O site funcionando no celular.
+17-como-rodar.png ................ Como acessar online e como rodar no computador (Node.js + MySQL).
+
+Observação: os prints foram tirados do site online com os dados de exemplo
+(70 lotes e 856 vendas). As datas aparecem como 18/11/2026, o dia em que foram gerados.
